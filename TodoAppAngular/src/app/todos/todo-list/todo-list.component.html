@@ -1,0 +1,45 @@
+<!-- <mat-form-field class="example-full-width">
+    <mat-label>New Todo</mat-label>
+    <input matInput placeholder="Add new todo..." [(ngModel)]="newTodo" (keyup.enter)="onEnter()">
+</mat-form-field> -->
+
+<mat-form-field class="example-form-field">
+    <mat-label>New Todo</mat-label>
+    <input matInput placeholder="Add new todo..." [(ngModel)]="newTodo" (keyup.enter)="onEnter()">
+    <button *ngIf="newTodo" matSuffix mat-icon-button aria-label="Clear" (click)="newTodo=''">
+        <mat-icon>close</mat-icon>    
+     </button>
+  </mat-form-field>
+
+<small style="margin-left:1em; vertical-align: center; text-align: center;">Press enter for create a new todo</small>
+
+<hr>
+
+<div class="col-12" *ngIf="!todoService.todos">
+    <span>There is not any todo item.</span>
+    <hr>
+</div>
+
+<div class="col-12" *ngIf="todoService.todos?.length === 0">
+    <span>There is not any todo item.</span>
+    <hr>
+</div>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">iscompleted</th>
+        <th scope="col">Complete</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let todo of todoService.todos">
+            <td>{{ todo?.title }}</td>
+            <td>{{ todo?.isCompleted ? "Yes" : "No" }}</td>
+            <td><button class="btn btn-primary" *ngIf="!todo?.isCompleted"><i class="fa fa-check"></i></button></td>
+            <td><button class="btn btn-danger" (click)="deleteTask(todo?.id)"><i class="fa fa-trash"></i></button></td>
+          </tr>
+    </tbody>
+  </table>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
